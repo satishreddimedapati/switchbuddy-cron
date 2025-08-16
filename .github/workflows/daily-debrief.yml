@@ -1,0 +1,25 @@
+name: Daily Debrief
+
+on:
+  schedule:
+    # Run every day at 14:50 IST (10:20 UTC)
+    - cron: '20 10 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  send-debrief:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Daily Debrief
+        run: node index.js
